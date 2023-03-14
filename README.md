@@ -46,8 +46,8 @@ The project includes the following files and folders:
      * routes/folder - folder contains express routes for the web application.
      * schemas/folder - folder contains a Joi schema for the form we are using to construct option RIC.
      * utils/folder - folder contains utility functions for catching async requests and handling express errors.
-     * app.ts - application file to connect to MongoDb and run the server
-     * getOptionRIC.ts - main function which is called after submitting RIC constructer request. This function first checks in which exchanges options on the required asset are traded and calls the respective exchange specific functions for RIC construction.
+     * *app.ts* - application file to connect to MongoDb and run the server
+     * *getOptionRIC.ts* - main function which is called after submitting RIC constructer request. This function first checks in which exchanges options on the required asset are traded and calls the respective exchange specific functions for RIC construction.
      * session.config.json - file to store API credentials for opening API session.
    * package.json - project's NPM dependencies file for the backend
    * rdplibconfig.prod.json - rdp configuration file
