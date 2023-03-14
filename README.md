@@ -36,7 +36,7 @@ The project includes complete TypeScript source codes, a simple Express.js web s
 
 The project includes the following files and folders:
 
-* backend/folder
+:file_folder: backend/folder
    * src/folder
      * APIRequests/folder - folder includes functions for requesting data from Refinitiv APIs, particularly it uses the historical pricing, symbol conversion and search (with navigators) capabilities of RD Library for Typescript.
      * Common/folder - folder contains the session.ts file which will allow the creating and opening API sessions for data requests.
@@ -52,7 +52,7 @@ The project includes the following files and folders:
    * package.json - project's NPM dependencies file for the backend
    * rdplibconfig.prod.json - rdp configuration file
    * tsconfig.json - typescript configuration file for the backend
-* frontent/folder
+:file_folder: frontent/folder
   * public/folder - folder contains public html file
   * src/folder
     * components/folder - folder contains web application pages, including the main pages and footer, header.
