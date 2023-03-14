@@ -38,29 +38,29 @@ The project includes the following files and folders:
 
 * backend/folder
    * src/folder
-     * APIRequests/folder
-     * Common/folder
-     * getRICExchanges/folder
-     * helper/folder
-     * models/folder
-     * rootes/folder
-     * schemas/folder
-     * utils/folder
-     * app.ts
-     * getOptionRIC.ts
-     * session.config.json
-   * package.json
-   * rdplibconfig.prod.json
-   * tsconfig.json
+     * APIRequests/folder - folder includes functions for requesting data from Refinitiv APIs, particularly it uses the historical pricing, symbol conversion and search (with navigators) capabilities of RD Library for Typescript.
+     * Common/folder - folder contains the session.ts file which will allow the creating and opening API sessions for data requests.
+     * getRICExchanges/folder - folder includes separate functions to construct RICs from the abovementioned 6 exchanges.
+     * helper/folder - folder contains helper functions for getting experation month for OPRA traded options and check the reconstructed RICs.
+     * models/folder - folder includes a function which defines mongoose schema for storing reconstructed RICs and metadata.
+     * routes/folder - folder contains express routes for the web application.
+     * schemas/folder - folder contains a Joi schema for the form we are using to construct option RIC.
+     * utils/folder - folder contains utility functions for catching async requests and handling express errors.
+     * app.ts - application file to connect to MongoDb and run the server
+     * getOptionRIC.ts - main function which is called after submitting RIC constructer request. This function first checks in which exchanges options on the required asset are traded and calls the respective exchange specific functions for RIC construction.
+     * session.config.json - file to store API credentials for opening API session.
+   * package.json - project's NPM dependencies file for the backend
+   * rdplibconfig.prod.json - rdp configuration file
+   * tsconfig.json - typescript configuration file for the backend
 * frontent/folder
-  * public/folder
+  * public/folder - folder contains public html file
   * src/folder
-    * components/folder
-    * helper/folder
-    * app.css
-    * index.tsx
+    * components/folder - folder contains web application pages, including the main pages and footer, header.
+    * helper/folder - folder contains helper functions to create datatables, charts and handle click, delete events. Additionally, it contains *workspace-sdk-services.ts* file which initializes side by side service and defines functions to open and/or broadcast Refinitiv Workspace pages.
+    * app.css - CSS file for the project
+    * index.tsx - file to create the React root element and render React pages.
     * reportWebVitals.ts
-    * session.config.json
-  * package.json
-  * tsconfig.json
+    * session.config.json - file to store API credentials for opening API SxSSession.
+  * package.json - project's NPM dependencies file for the frontend
+  * tsconfig.json - typescript configuration file for the frontend
       
