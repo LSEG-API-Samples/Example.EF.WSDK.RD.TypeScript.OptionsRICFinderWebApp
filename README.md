@@ -55,7 +55,8 @@ The project includes the following files and folders:
 * frontent/folder
   * public/folder
   * src/folder
-    * components/layouts/pages/folder
+    * components/folder
+    * helper/folder
     * app.css
     * index.tsx
     * reportWebVitals.ts
