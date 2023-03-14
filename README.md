@@ -46,9 +46,9 @@ The project includes the following files and folders:
      * routes/folder - folder contains express routes for the web application.
      * schemas/folder - folder contains a Joi schema for the form we are using to construct option RIC.
      * utils/folder - folder contains utility functions for catching async requests and handling express errors.
-     * *app.ts* - application file to connect to MongoDb and run the server
-     * *getOptionRIC.ts* - main function which is called after submitting RIC constructer request. This function first checks in which exchanges options on the required asset are traded and calls the respective exchange specific functions for RIC construction.
-     * *session.config.json* - file to store API credentials for opening API session.
+     * ***app.ts*** - application file to connect to MongoDb and run the server
+     * ***getOptionRIC.ts*** - main function which is called after submitting RIC constructer request. This function first checks in which exchanges options on the required asset are traded and calls the respective exchange specific functions for RIC construction.
+     * ***session.config.json*** - file to store API credentials for opening API session.
    * *package.json* - project's NPM dependencies file for the backend
    * *rdplibconfig.prod.json* - rdp configuration file
    * *tsconfig.json* - typescript configuration file for the backend
@@ -56,11 +56,11 @@ The project includes the following files and folders:
   * public/folder - folder contains public html file
   * src/folder
     * components/folder - folder contains web application pages, including the main pages and footer, header.
-    * helper/folder - folder contains helper functions to create datatables, charts and handle click, delete events. Additionally, it contains **workspace-sdk-services.ts** file which initializes side by side service and defines functions to open and/or broadcast Refinitiv Workspace pages.
+    * helper/folder - folder contains helper functions to create datatables, charts and handle click, delete events. Additionally, it contains ***workspace-sdk-services.ts*** file which initializes side by side service and defines functions to open and/or broadcast Refinitiv Workspace pages.
     * ***app.css*** - CSS file for the project
-    * index.tsx - file to create the React root element and render React pages.
-    * reportWebVitals.ts
-    * session.config.json - file to store API credentials for opening API SxSSession.
-  * package.json - project's NPM dependencies file for the frontend 
-  * tsconfig.json - typescript configuration file for the frontend
+    * ***index.tsx*** - file to create the React root element and render React pages.
+    * ***reportWebVitals.ts***
+    * ***session.config.json*** - file to store API credentials for opening API SxSSession.
+  * ***package.json*** - project's NPM dependencies file for the frontend 
+  * ***tsconfig.json*** - typescript configuration file for the frontend
       
