@@ -1,0 +1,168 @@
+/* styles for Home Page */
+h2.title {
+    margin: 20px;
+    margin-bottom: 40px
+}
+
+.outerLayouts {
+    background-color: #e4e8ed;
+    margin: 10px;
+    padding: 10px;
+    width: 1300px;
+    font-size: 1rem;
+}
+
+.rulesTable {
+    background-color: #d0d4db;
+    padding: 10px;
+    margin: 20px;
+    width: 1300px;
+}
+
+.exchange,
+.source {
+    background-color: #e4e8ed;
+    margin: 10px;
+    padding: 10px;
+    width: 220px;
+    font-size: 1rem;
+}
+
+.rules {
+    background-color: #e4e8ed;
+    margin: 10px;
+    padding: 10px;
+    width: 700px;
+    font-size: 1rem;
+}
+
+/* styles for Footer */
+
+.footer {
+    padding: 10px 0;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    background-color: rgb(242, 242, 242);
+}
+
+/* styles for constructRIC Page */
+
+.formContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 75px);
+    align-items: center;
+}
+
+
+span[slot="header"] {
+    font-size: 1rem;
+}
+
+.footer span {
+    color: black;
+    font-size: 1rem;
+}
+
+#requestForm>div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+#requestForm label {
+    flex-basis: 40%;
+    margin-right: 10px;
+    font-size: 1rem;
+}
+
+#requestForm .inputField {
+    flex-grow: 1;
+    height: 30px;
+}
+
+
+.btnHolder {
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btnHolder button {
+    font-size: 1rem;
+    padding: 18px 12px
+}
+
+/* styles for constructedRICs Page */
+.dataTables_wrapper {
+    padding: 10px 150px;
+    font-size: 1rem;
+}
+
+.titleTable {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* styles for prices Page */
+.chartContainer {
+    min-height: calc(100vh - 75px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chartFrame,
+.quotesFrame {
+    height: 50vh;
+    width: 800px;
+}
+
+.lineChart {
+    width: 60%;
+}
+
+div[slot] {
+    display: flex;
+    justify-content: right
+}
+
+/* styles for searchOutput Page */
+.viewBtnDialogue {
+    margin-right: 10px;
+    background-color: rgb(13, 13, 13);
+    color: rgb(204, 204, 204);
+    border-color: rgb(13, 13, 13);
+    box-shadow: rgb(0 0 0 / 25%) 0px 0px 0px 0px;
+    outline: 0px;
+}
+
+#view,
+#delete,
+#chartWorkspace,
+#pricesChart,
+#quotesWorkspace {
+    width: 20px;
+    height: 20px;
+}
+
+#view:hover,
+#delete:hover,
+#chartWorkspace:hover,
+#pricesChart:hover,
+#quotesWorkspace:hover {
+    color: blue;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+
+#ric-wsdk:hover {
+    color: blue;
+}
