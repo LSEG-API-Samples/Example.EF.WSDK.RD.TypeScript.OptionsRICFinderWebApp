@@ -39,32 +39,16 @@ The project includes the following files and folders:
 * backend/folder
    * src/folder
      * APIRequests/folder
-        * getExchanges.ts
-        * getHistPrices.ts
-        * getSymbol.ts
      * Common/folder
-        * session.ts
      * getRICExchanges/folder
-        * getEUREX.ts
-        * getHK.ts
-        * getIEU.ts
-        * getOPRA.ts
-        * getOSE.ts
-      * helper/folder
-        * checkRIC.ts
-        * getExpMonth.ts
-      * models/folder
-        * ricPrices.ts
-      * rootes/folder
-        * findingRICs.ts
-      * schemas/folder
-        * schemas.ts
-      * utils/folder
-        * catchAsync.ts
-        * expressError.ts
-      * app.ts
-      * getOptionRIC.ts
-      * session.config.json
+     * helper/folder
+     * models/folder
+     * rootes/folder
+     * schemas/folder
+     * utils/folder
+     * app.ts
+     * getOptionRIC.ts
+     * session.config.json
    * package.json
    * rdplibconfig.prod.json
    * tsconfig.json
