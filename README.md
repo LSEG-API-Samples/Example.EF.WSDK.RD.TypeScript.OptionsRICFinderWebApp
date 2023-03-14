@@ -36,12 +36,12 @@ The project includes complete TypeScript source codes, a simple Express.js web s
 
 The project includes the following files and folders:
 
-- backend/folder
-  - src/folder
-    - APIRequests/folder
-      - getExchanges.ts
-      - getHistPrices.ts
-      - getSymbol.ts
-    - Common
-      - session.ts
-      - 
+* backend/folder
+  * src/folder
+    * APIRequests/folder
+      * getExchanges.ts
+      * getHistPrices.ts
+      * getSymbol.ts
+    * Common
+      * session.ts
+      * 
