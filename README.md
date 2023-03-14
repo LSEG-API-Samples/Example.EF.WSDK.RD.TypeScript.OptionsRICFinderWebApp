@@ -1,5 +1,7 @@
 # Web Application allowing to find Option RICs
 
+Example Code Disclaimer: ALL EXAMPLE CODE IS PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS FOR ILLUSTRATIVE PURPOSES ONLY. REFINITIV MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE OPERATION OF THE EXAMPLE CODE, OR THE INFORMATION, CONTENT, OR MATERIALS USED IN CONNECTION WITH THE EXAMPLE CODE. YOU EXPRESSLY AGREE THAT YOUR USE OF THE EXAMPLE CODE IS AT YOUR SOLE RISK.
+
 ## Project Overview
 
 Currently one cannot directly access expired options through a single API call. To get historical data on options, one will need to reconstruct options Refinitiv Identification Codes (RIC) following the logic of RIC construction rules and the rules specified by the exchange where the option is traded.
@@ -23,7 +25,18 @@ The example supports Chrome/Microsoft Edge (Chrome-based version), Firefox, and 
 ## Prerequisite
 This example requires the following dependencies software.
 
-1. [Node.js](https://nodejs.org/en/) runtime - version 16.15.1.
+1. [Node.js](https://nodejs.org/en/) runtime
 2. [npm](https://www.npmjs.com/) package manager (included in Node.js)
 3. [TypeScript](https://www.typescriptlang.org) compiler (will be installed via ```npm install``` command)
-4. [Express.js](https://expressjs.com/) web framework (will be installed via ```npm install``` command)
+4. https://reactjs.org/docs/getting-started.html
+
+The project includes complete TypeScript source codes, a simple Express.js web server application file, CSS files, and all required static dependencies. All dynamic dependencies for compiling and building source files are defined in package.json files respectively for backend and for the frontent. These dependencies can be installed via npm install command.
+
+## Project Structure
+
+The project includes the following files and folders:
+
+- backend/folder
+  - src/folder
+    - APIRequests/folder
+      - getExchanges.ts
