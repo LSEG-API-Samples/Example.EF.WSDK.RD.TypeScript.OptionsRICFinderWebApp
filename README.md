@@ -49,9 +49,9 @@ The project includes the following files and folders:
      * ***app.ts*** - application file to connect to MongoDb and run the server
      * ***getOptionRIC.ts*** - main function which is called after submitting RIC constructer request. This function first checks in which exchanges options on the required asset are traded and calls the respective exchange specific functions for RIC construction.
      * ***session.config.json*** - file to store API credentials for opening API session.
-   * *package.json* - project's NPM dependencies file for the backend
-   * *rdplibconfig.prod.json* - rdp configuration file
-   * *tsconfig.json* - typescript configuration file for the backend
+   * ***package.json*** - project's NPM dependencies file for the backend
+   * ***rdplibconfig.prod.json*** - rdp configuration file
+   * ***tsconfig.json*** - typescript configuration file for the backend
 * frontent/folder
   * public/folder - folder contains public html file
   * src/folder
