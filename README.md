@@ -37,8 +37,8 @@ The project includes complete TypeScript source codes, a simple Express.js web s
 The project includes the following files and folders:
 
 :file_folder: backend/folder
-   * src/folder
-     * APIRequests/folder - folder includes functions for requesting data from Refinitiv APIs, particularly it uses the historical pricing, symbol conversion and search (with navigators) capabilities of RD Library for Typescript.
+   📁 src/folder
+     📁 APIRequests/folder - folder includes functions for requesting data from Refinitiv APIs, particularly it uses the historical pricing, symbol conversion and search (with navigators) capabilities of RD Library for Typescript.
      * Common/folder - folder contains the session.ts file which will allow the creating and opening API sessions for data requests.
      * getRICExchanges/folder - folder includes separate functions to construct RICs from the abovementioned 6 exchanges.
      * helper/folder - folder contains helper functions for getting experation month for OPRA traded options and check the reconstructed RICs.
