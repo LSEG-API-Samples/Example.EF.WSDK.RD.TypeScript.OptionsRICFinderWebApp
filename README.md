@@ -39,9 +39,8 @@ The project includes the following files and folders:
 * backend/folder
    * src/folder
      * APIRequests/folder
-       ** getExchanges.ts
-       ** getHistPrices.ts
-       ** getSymbol.ts
+        * getExchanges.ts
+        * getHistPrices.ts
+        * getSymbol.ts
      * Common
-       ** session.ts
-       **
+        * session.ts
