@@ -52,3 +52,14 @@ The project includes the following files and folders:
    * package.json
    * rdplibconfig.prod.json
    * tsconfig.json
+* frontent/folder
+  * public/folder
+  * src/folder
+    * components/layouts/pages/folder
+    * app.css
+    * index.tsx
+    * reportWebVitals.ts
+    * session.config.json
+  * package.json
+  * tsconfig.json
+      
