@@ -40,3 +40,8 @@ The project includes the following files and folders:
   - src/folder
     - APIRequests/folder
       - getExchanges.ts
+      - getHistPrices.ts
+      - getSymbol.ts
+    - Common
+      - session.ts
+      - 
