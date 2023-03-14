@@ -56,7 +56,7 @@ The project includes the following files and folders:
   * public/folder - folder contains public html file
   * src/folder
     * components/folder - folder contains web application pages, including the main pages and footer, header.
-    * helper/folder - folder contains helper functions to create datatables, charts and handle click, delete events. Additionally, it contains *workspace-sdk-services.ts* file which initializes side by side service and defines functions to open and/or broadcast Refinitiv Workspace pages.
+    * helper/folder - folder contains helper functions to create datatables, charts and handle click, delete events. Additionally, it contains **workspace-sdk-services.ts** file which initializes side by side service and defines functions to open and/or broadcast Refinitiv Workspace pages.
     * app.css - CSS file for the project
     * index.tsx - file to create the React root element and render React pages.
     * reportWebVitals.ts
