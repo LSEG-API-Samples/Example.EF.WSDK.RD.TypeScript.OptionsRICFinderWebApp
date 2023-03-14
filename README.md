@@ -61,6 +61,6 @@ The project includes the following files and folders:
     * index.tsx - file to create the React root element and render React pages.
     * reportWebVitals.ts
     * session.config.json - file to store API credentials for opening API SxSSession.
-  * package.json - project's NPM dependencies file for the frontend
+  * package.json - project's NPM dependencies file for the frontend 
   * tsconfig.json - typescript configuration file for the frontend
       
