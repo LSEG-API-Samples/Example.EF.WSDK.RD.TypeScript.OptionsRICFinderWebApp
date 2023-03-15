@@ -64,5 +64,5 @@ The project includes the following files and folders:
  
 ## How to run this example application
 1. Make sure you have installed the dependency software, such as Node JS and Mongo DB.
-1. Unzip or download the example project folder into a directory of your choice 
-2. Run ```$> npm install``` in the command prompt to install all the dependencies required to run the sample in a subdirectory called *node_modules/*. Please note that you may need to run ```$> npm install``` in both backend and frontend folders to install dependencies for thw backend and frontend respectively.
+2. Unzip or download the example project folder into a directory of your choice 
+3. Run ```$> npm install``` in the command prompt to install all the dependencies required to run the sample in a subdirectory called *node_modules/*. Please note that you may need to run ```$> npm install``` in both backend and frontend folders to install dependencies for thw backend and frontend respectively.
