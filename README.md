@@ -78,3 +78,13 @@ The project includes the following files and folders:
 ![npm start display](images/npm_start.png "npm start display")
 
 ![app screen display](images/app_screen.png "app screen display")
+
+## References
+For further details, please check out the following resources:
+* [Refinitiv Data Library for Typescript](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-library-for-typescript)
+* [Refinitiv Element Framework](https://ui.refinitiv.com/)
+* [Workspace SDK](https://developers.refinitiv.com/en/api-catalog/workspace-sdk/workspace-sdk)
+* [TypeScript programming language: Documentation](https://www.typescriptlang.org/docs/home.html).
+* [Developer Article: Functions to find Option RICs traded on different exchanges(https://developers.refinitiv.com/en/article-catalog/article/functions-to-find-option-rics-traded-on-different-exchanges)
+
+For any questions related to this article or the used APIs, please use the Developer Community [Q&A Forum](https://community.developers.refinitiv.com/index.html).
