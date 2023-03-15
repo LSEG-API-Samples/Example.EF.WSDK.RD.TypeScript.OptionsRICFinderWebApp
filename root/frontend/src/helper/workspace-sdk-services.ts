@@ -4,7 +4,7 @@ import creds from '../session.config.json';
 
 class WsdkHelper {
     appIsAlreadyOpened = false;
-
+    openedAppName = ''
     constructor() {
         WSDKLoader.init(
             {
@@ -45,6 +45,7 @@ class WsdkHelper {
             }
         );
         this.appIsAlreadyOpened = true;
+        this.openedAppName = appName
     }
 
     async broadcast(ric: string) {
@@ -59,12 +60,12 @@ class WsdkHelper {
     }
 
     async openAppOrBroadcast(appName: string, ric: string) {
-        if (!this.appIsAlreadyOpened) {
-            await this.openApp(appName, ric);
-        } else {
+        console.log(this.openedAppName, appName)
+        if (this.appIsAlreadyOpened && this.openedAppName === appName) {
             await this.broadcast(ric);
+        } else {
+            await this.openApp(appName, ric);
         }
     }
 }
-
 export const wsdkHelper = new WsdkHelper();
