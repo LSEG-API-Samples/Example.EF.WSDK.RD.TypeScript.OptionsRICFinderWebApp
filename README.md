@@ -66,6 +66,15 @@ The project includes the following files and folders:
 1. Make sure you have installed the dependency software, such as Node JS and Mongo DB.
 2. Unzip or download the example project folder into a directory of your choice 
 3. Run ```$> npm install``` in the command prompt to install all the dependencies required to run the sample in a subdirectory called *node_modules/*. Please note that you will need to run ```$> npm install``` in both backend and frontend folders to install dependencies for thw backend and frontend respectively.
+![npm command display](images/npm_install.png "npm command display")
+
 4. Connect to a MongoDB deployment following the guide [here](https://www.mongodb.com/docs/mongodb-shell/connect/).
+![mongo connect display](images/mongo_connected.png "mongo connect display")
+
 5. Initialize the backend - navigate to ```root/backend/src``` folder in the command prompt and run ```npx nodemon app.ts```
+![backend initialized display](images/backend_launch.png "backend initialized display")
+
 6. Start the frontend to launch the app - navigate to ```root/frontend``` folder in the command prompt and Run ```npm start``` in the command prompt to start the webserver at HTTP port 8080 (port is configured from the package.json file)
+![npm start display](images/npm_start.png "npm start display")
+
+![app screen display](images/app_screen.png "app screen display")
