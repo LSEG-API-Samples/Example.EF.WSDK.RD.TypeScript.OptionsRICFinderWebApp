@@ -24,8 +24,11 @@ The example supports Chrome/Microsoft Edge (Chrome-based version), Firefox, and 
 
 ## Prerequisite
 This example requires the following dependencies software.
+1. [Node.js](https://nodejs.org/en/) runtime - tested on 18.15.0.
+2. [npm](https://www.npmjs.com/) package manager (included in Node.js)
+3. [MongoDB Community Edition](https://www.mongodb.com/docs/manual/administration/install-community/) - tested on 6.0.5.
 
-The project is build using [Node.js](https://nodejs.org/en/) in backend and [React.js](https://reactjs.org) the frontend. We are using [MongoDB](https://www.mongodb.com) to store reconstructed options RICs and metadata. The project includes complete TypeScript source codes, a simple Express.js web server application file, CSS files, and all required static dependencies. All dynamic dependencies for compiling and building source files are defined in package.json files respectively for backend and for the frontent. These dependencies can be installed via npm install command.
+The project is build using [Node.js](https://nodejs.org/en/) in backend and [React.js](https://reactjs.org) the frontend. We are using [MongoDB](https://www.mongodb.com) to store reconstructed options RICs and metadata. The project includes complete TypeScript source codes, a simple Express.js web server application file, CSS files, and all required static dependencies. All dynamic dependencies for compiling and building source files are defined in package.json files respectively for backend and for the frontent. These dependencies can be installed via ```npm install``` command.
 
 ## Project Structure
 
