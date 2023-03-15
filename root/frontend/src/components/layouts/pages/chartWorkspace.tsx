@@ -19,7 +19,7 @@ export default function ShowChartWorkspace() {
 
         <div className='chartContainer'>
             <ef-card header={`Prices for ${data['ric']} from ${data['exchange']}`} class='lineChart' >
-                <iframe title='quotes' className='quotesFrame' src={`https://workspace.refinitiv.com/salesforce/Apps/NewFinancialChart/?st=RIC&s=${data['ric']}`}></iframe>
+                <iframe title='chart' className='chartFrame' src={`https://workspace.refinitiv.com/salesforce/Apps/NewFinancialChart/?st=RIC&s=${data['ric']}`}></iframe>
             </ef-card>
         </div >
     )

@@ -25,8 +25,9 @@ function handleIcons(setData: any, table: any) {
     });
 }
 
-export default function createDatatable(setData: any, res: any) {
+export default async function createDatatable(setData: any, res: any) {
     const columns: any = createColumns(res)
+    wsdkHelper.initialize_wsdk()
     $(document).ready(() => {
         const tableRICs = $("#showRICs").DataTable({
 
@@ -103,7 +104,9 @@ export default function createDatatable(setData: any, res: any) {
                 {
                     target: 4,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
-                        ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OV', cellData)}><u>{cellData}</u></a>, td);
+                        if (!cellData.includes("^")) {
+                            ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OPR', cellData)}><u>{cellData}</u></a>, td);
+                        }
                     }
                 }
             ]
