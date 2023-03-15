@@ -23,11 +23,20 @@ class WsdkHelper {
         return WSDKLoader.ready();
     }
 
+    async initialize_wsdk() {
+
+        const wsdk = await this.getWsdk();
+        await wsdk.DesktopAgent.joinChannel("1");
+        wsdk.DesktopAgent.addContextListener(null, (context) => {
+            console.log(context);
+        });
+    }
+
     async openApp(appName: string, ric: string) {
         console.log("openApp");
         const wsdk = await this.getWsdk();
         await wsdk.DesktopAgent.open(
-            { name: "OV" },
+            { name: appName },
             {
                 type: "fdc3.instrument",
                 id: {
@@ -41,7 +50,7 @@ class WsdkHelper {
     async broadcast(ric: string) {
         console.log(`broadcasting ric: ${ric}`);
         const wsdk = await this.getWsdk();
-        wsdk.DesktopAgent.broadcast({
+        await wsdk.DesktopAgent.broadcast({
             type: "fdc3.instrument",
             id: {
                 RIC: ric,
@@ -53,7 +62,7 @@ class WsdkHelper {
         if (!this.appIsAlreadyOpened) {
             await this.openApp(appName, ric);
         } else {
-            this.broadcast(ric);
+            await this.broadcast(ric);
         }
     }
 }
