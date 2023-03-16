@@ -74,9 +74,10 @@ The project includes the following files and folders:
 5. Initialize the backend - navigate to ```root/backend/src``` folder in the command prompt and run ```npx nodemon app.ts```
 ![backend initialized display](images/backend_launch.png "backend initialized display")
 
-6. Start the frontend to launch the app - navigate to ```root/frontend``` folder in the command prompt and Run ```npm run build``` in the command prompt then run ```npx serve -s build -p 8080``` to serve the application on port 8080.
+6. Start the frontend to launch the app - navigate to ```root/frontend``` folder in the command prompt and Run ```npm run build``` in the command prompt then run ```npx serve -s build -p 8080``` to serve the application on port 8080. 
 ![npm run build display](images/run_build.png "npm run build display")
 
+7. Open application in localhost:8080:
 ![app screen display](images/app_screen.png "app screen display")
 
 ## References
