@@ -84,9 +84,9 @@ export default async function createDatatable(setData: any, res: any) {
                         }
                     },
                     defaultContent:
-                        "<span title=\"See instrument price chart in Workspace\"><ef-icon icon = \"chart-line-bar\" id=\"chartWorkspace\"></ef-icon></span>\
-                        <span title=\"See instrument price chart\"><ef-icon icon = \"display-all-fields\" id=\"pricesChart\"></ef-icon></span>\
-                        <span title=\"Delete the record\"><ef-icon icon = \"dsc-delete-chart\" id=\"delete\"></ef-icon></span>",
+                        "<span title=\"See instrument price chart in Workspace\"><ef-icon icon = \"chart-line-bar\" id=\"chartWorkspace\"></ef-icon></span>" +
+                        "<span title=\"See instrument price chart\"><ef-icon icon = \"display-all-fields\" id=\"pricesChart\"></ef-icon></span>" +
+                        "<span title=\"Delete the record\"><ef-icon icon = \"dsc-delete-chart\" id=\"delete\"></ef-icon></span>",
                     className: 'dt-body-center'
                 },
                 {

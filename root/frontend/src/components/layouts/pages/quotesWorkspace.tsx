@@ -14,7 +14,7 @@ export default function ShowQuotesWorkspace() {
                 setData(res as any)
             }
         })()
-    }, []);
+    }, [params.id]);
 
     return (
         <div className='chartContainer'>

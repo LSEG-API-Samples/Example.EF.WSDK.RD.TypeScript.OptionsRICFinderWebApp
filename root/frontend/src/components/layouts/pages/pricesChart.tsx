@@ -16,7 +16,7 @@ export default function ShowPrices() {
             }
             createPriceChart(res);
         })()
-    }, []);
+    }, [params.id]);
 
     return (
         <div className='chartContainer'>

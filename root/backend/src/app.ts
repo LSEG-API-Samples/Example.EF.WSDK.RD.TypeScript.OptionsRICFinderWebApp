@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const ExpressError = require('./utils/ExpressError');
 const findingRICs = require('./routes/findingRICs');
 
-mongoose.connect('mongodb://localhost:27017/options');
+mongoose.connect('mongodb://127.0.0.1:27017/options'); // 127.0.0.1 or localhost
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {

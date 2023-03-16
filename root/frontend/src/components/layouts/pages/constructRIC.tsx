@@ -70,6 +70,9 @@ export default function ConstructRIC() {
                 else if (!element.asset && status as any === 200) {
                     return showNoFoundRICDialogue(element, index, handleClick)
                 }
+                else {
+                    return null
+                }
             })}
         </div>
     )

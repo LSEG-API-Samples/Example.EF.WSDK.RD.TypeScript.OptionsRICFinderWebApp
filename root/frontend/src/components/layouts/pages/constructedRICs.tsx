@@ -2,7 +2,7 @@ import React from 'react';
 import createDatatable from '../../../helper/createDataTable'
 
 export default function ShowRIC() {
-
+    // eslint-disable-next-line
     const [data, setData] = React.useState([]);
     React.useEffect(() => {
         (async () => {
