@@ -1,42 +1,46 @@
 export { };
 const moment = require('moment');
-const checkRIC = require('../helper/checkRIC');
+const getRICWithPrices = require('../helper/getRICWithPrices');
 const getExpMonth = require('../helper/getExpMonth');
 
-async function getOseRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
-
-    let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
+function getAssetName(asset: string) {
     let assetName = '';
-    let strikeRIC = '';
-
     if (asset[0] == '.') {
         assetName = asset.split('.', 2)[1];
-    }
-    else {
-        assetName = asset.split('.', 2)[0];
-    };
-
-    strikeRIC = String(strike).slice(0, 3);
-    const expDetails = getExpMonth(expDate, optType);
-    let possibleRICs: any = [];
-    const generations = ['Y', 'Z', 'A', 'B', 'C'];
-    const JNET = ['', 'L', 'R']
-
-    if (asset[0] == '.') {
         if (assetName === 'N225') {
             assetName = 'JNI'
         }
         else if (assetName === 'TOPX') {
             assetName = 'JTI'
         }
+    }
+    else {
+        assetName = asset.split('.', 2)[0];
+    };
+    return assetName
+}
+
+function getStrikeRIC(strike: number) {
+    let strikeRIC = '';
+    strikeRIC = String(strike).slice(0, 3);
+    return strikeRIC
+}
+
+async function getOseRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
+
+    let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
+    const expDetails = getExpMonth(expDate, optType);
+    const assetName = getAssetName(asset)
+    const strikeRIC = getStrikeRIC(strike)
+    const generations = ['Y', 'Z', 'A', 'B', 'C'];
+    const JNET = ['', 'L', 'R']
+    let ricWithPrices: any = []
+    if (asset[0] == '.') {
         for (let jnet in JNET) {
             const ric = `${assetName}${JNET[jnet]}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.OS`
-            const response = await checkRIC(ric, maturity, expDetails[0], session);
-            if (Object.keys(response[1]).length !== 0) {
-                return response
-            }
-            else {
-                possibleRICs.push(response[0])
+            ricWithPrices = await getRICWithPrices(ric, maturity, expDetails[0], session);
+            if (Object.keys(ricWithPrices[1]).length !== 0) {
+                return ricWithPrices
             }
         }
     }
@@ -44,18 +48,14 @@ async function getOseRIC(asset: string, maturity: string, strike: number, optTyp
         for (const jnet in JNET) {
             for (let gen in generations) {
                 const ric = `${assetName}${JNET[jnet]}${generations[gen]}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.OS`
-                const response = await checkRIC(ric, maturity, expDetails[0], session);
-                if (Object.keys(response[1]).length !== 0) {
-                    return response
+                ricWithPrices = await getRICWithPrices(ric, maturity, expDetails[0], session);
+                if (Object.keys(ricWithPrices[1]).length !== 0) {
+                    return ricWithPrices
                 }
-                else {
-                    possibleRICs.push(response[0])
-                };
             }
         }
     };
-    console.log(`Here is a list of possible RICs ${possibleRICs}, however we could not find any prices for those!`)
-    return possibleRICs
+    return ricWithPrices
 };
 
 module.exports = getOseRIC;

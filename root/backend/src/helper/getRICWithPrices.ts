@@ -3,7 +3,7 @@ const moment = require('moment');
 const getPrices = require('../APIRequests/getHistPrices');
 
 
-async function checkRICs(ric: string, maturity: string, ident: any, session: any) {
+async function getRICWithPrices(ric: string, maturity: string, ident: any, session: any) {
     let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');;
     let sDate = moment().subtract(90, 'days').format('YYYY-MM-DD')
     let eDate = moment().format('YYYY-MM-DD');
@@ -24,4 +24,4 @@ async function checkRICs(ric: string, maturity: string, ident: any, session: any
 
 };
 
-module.exports = checkRICs;
+module.exports = getRICWithPrices;

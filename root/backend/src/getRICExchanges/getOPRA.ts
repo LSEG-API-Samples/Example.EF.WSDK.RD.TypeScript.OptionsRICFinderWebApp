@@ -1,31 +1,10 @@
 export { };
 const moment = require('moment');
-const checkRIC = require('../helper/checkRIC');
+const getRICWithPrices = require('../helper/getRICWithPrices');
 
-async function getOpraRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
-    let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
-    let assetName = '';
+function getExpMonth(optType: string, strike: number, maturity: string, expDate: Date, ident: object) {
     let expMonth = '';
-    if (asset[0] == '.') {
-        assetName = asset.split('.', 2)[1];
-    }
-    else {
-        assetName = asset.split('.', 2)[0];
-    };
-    const ident = {
-        '1': { 'exp': 'A', 'C_bigStrike': 'a', 'C_smallStrike': 'A', 'P_bigStrike': 'm', 'P_smallStrike': 'M' },
-        '2': { 'exp': 'B', 'C_bigStrike': 'b', 'C_smallStrike': 'B', 'P_bigStrike': 'n', 'P_smallStrike': 'N' },
-        '3': { 'exp': 'C', 'C_bigStrike': 'c', 'C_smallStrike': 'C', 'P_bigStrike': 'o', 'P_smallStrike': 'O' },
-        '4': { 'exp': 'D', 'C_bigStrike': 'd', 'C_smallStrike': 'D', 'P_bigStrike': 'p', 'P_smallStrike': 'P' },
-        '5': { 'exp': 'E', 'C_bigStrike': 'e', 'C_smallStrike': 'E', 'P_bigStrike': 'q', 'P_smallStrike': 'Q' },
-        '6': { 'exp': 'F', 'C_bigStrike': 'f', 'C_smallStrike': 'F', 'P_bigStrike': 'r', 'P_smallStrike': 'R' },
-        '7': { 'exp': 'G', 'C_bigStrike': 'g', 'C_smallStrike': 'G', 'P_bigStrike': 's', 'P_smallStrike': 'S' },
-        '8': { 'exp': 'H', 'C_bigStrike': 'h', 'C_smallStrike': 'H', 'P_bigStrike': 't', 'P_smallStrike': 'T' },
-        '9': { 'exp': 'I', 'C_bigStrike': 'i', 'C_smallStrike': 'I', 'P_bigStrike': 'u', 'P_smallStrike': 'U' },
-        '10': { 'exp': 'J', 'C_bigStrike': 'j', 'C_smallStrike': 'J', 'P_bigStrike': 'v', 'P_smallStrike': 'V' },
-        '11': { 'exp': 'K', 'C_bigStrike': 'k', 'C_smallStrike': 'K', 'P_bigStrike': 'w', 'P_smallStrike': 'W' },
-        '12': { 'exp': 'L', 'C_bigStrike': 'l', 'C_smallStrike': 'L', 'P_bigStrike': 'x', 'P_smallStrike': 'X' }
-    }
+
     if (optType.toUpperCase() === 'C') {
         if (strike > 999.999) {
             expMonth = ident[moment(expDate).format('M')].C_bigStrike
@@ -42,6 +21,21 @@ async function getOpraRIC(asset: string, maturity: string, strike: number, optTy
             expMonth = ident[moment(expDate).format('M')].P_smallStrike
         }
     }
+    return expMonth
+}
+
+function getAssetName(asset: string) {
+    let assetName = '';
+    if (asset[0] == '.') {
+        assetName = asset.split('.', 2)[1];
+    }
+    else {
+        assetName = asset.split('.', 2)[0];
+    };
+    return assetName
+}
+
+function getStrikeRIC(strike: number) {
     let intPart = null;
     let decPart = null;
     let strikeRIC = '';
@@ -82,18 +76,35 @@ async function getOpraRIC(asset: string, maturity: string, strike: number, optTy
     else if (intPart >= 40000 && intPart < 50000) {
         strikeRIC = `D${String(intPart).slice(-4)}`
     }
-    const ric = `${assetName}${expMonth}${moment(expDate).format('D')}${moment(expDate).format('Y').slice(-2)}${strikeRIC}.U`
+    return strikeRIC
+}
 
-    const response = await checkRIC(ric, maturity, ident, session)
-    let possibleRICs = []
-    if (Object.keys(response[1]).length !== 0) {
-        return response
+async function getOpraRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
+    let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
+    const ident = {
+        '1': { 'exp': 'A', 'C_bigStrike': 'a', 'C_smallStrike': 'A', 'P_bigStrike': 'm', 'P_smallStrike': 'M' },
+        '2': { 'exp': 'B', 'C_bigStrike': 'b', 'C_smallStrike': 'B', 'P_bigStrike': 'n', 'P_smallStrike': 'N' },
+        '3': { 'exp': 'C', 'C_bigStrike': 'c', 'C_smallStrike': 'C', 'P_bigStrike': 'o', 'P_smallStrike': 'O' },
+        '4': { 'exp': 'D', 'C_bigStrike': 'd', 'C_smallStrike': 'D', 'P_bigStrike': 'p', 'P_smallStrike': 'P' },
+        '5': { 'exp': 'E', 'C_bigStrike': 'e', 'C_smallStrike': 'E', 'P_bigStrike': 'q', 'P_smallStrike': 'Q' },
+        '6': { 'exp': 'F', 'C_bigStrike': 'f', 'C_smallStrike': 'F', 'P_bigStrike': 'r', 'P_smallStrike': 'R' },
+        '7': { 'exp': 'G', 'C_bigStrike': 'g', 'C_smallStrike': 'G', 'P_bigStrike': 's', 'P_smallStrike': 'S' },
+        '8': { 'exp': 'H', 'C_bigStrike': 'h', 'C_smallStrike': 'H', 'P_bigStrike': 't', 'P_smallStrike': 'T' },
+        '9': { 'exp': 'I', 'C_bigStrike': 'i', 'C_smallStrike': 'I', 'P_bigStrike': 'u', 'P_smallStrike': 'U' },
+        '10': { 'exp': 'J', 'C_bigStrike': 'j', 'C_smallStrike': 'J', 'P_bigStrike': 'v', 'P_smallStrike': 'V' },
+        '11': { 'exp': 'K', 'C_bigStrike': 'k', 'C_smallStrike': 'K', 'P_bigStrike': 'w', 'P_smallStrike': 'W' },
+        '12': { 'exp': 'L', 'C_bigStrike': 'l', 'C_smallStrike': 'L', 'P_bigStrike': 'x', 'P_smallStrike': 'X' }
     }
-    else {
-        possibleRICs.push(response[0])
-        console.log(`Here is a list of possible RICs ${possibleRICs}, however we could not find any prices for those!`)
+    const expMonth = getExpMonth(optType, strike, maturity, expDate, ident)
+    const assetName = getAssetName(asset)
+    const strikeRIC = getStrikeRIC(strike)
+    const ric = `${assetName}${expMonth}${moment(expDate).format('D')}${moment(expDate).format('Y').slice(-2)}${strikeRIC}.U`
+    let ricWithPrices: any = []
+    ricWithPrices = await getRICWithPrices(ric, maturity, ident, session)
+    if (Object.keys(ricWithPrices[1]).length !== 0) {
+        return ricWithPrices
     }
-    return possibleRICs
+    return ricWithPrices
 
 }
 

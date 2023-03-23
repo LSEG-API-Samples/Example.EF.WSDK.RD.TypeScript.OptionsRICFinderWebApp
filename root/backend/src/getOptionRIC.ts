@@ -7,6 +7,7 @@ const ISINtoRIC = require('./APIRequests/getSymbol');
 const getExchangeCode = require('./APIRequests/getExchanges');
 
 async function getOptionRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
+    console.log(asset)
     const exchanges = {
         'OPQ': getOPRA,
         'IEU': getIEU,
@@ -32,12 +33,10 @@ async function getOptionRIC(asset: string, maturity: string, strike: number, opt
     else {
         ric = asset
     }
-
     const exchnageCodes = await getExchangeCode(ric)
 
     let optionRics = {}
     let pricesList = []
-    let possibleRICs = []
     for (let exch in exchnageCodes.Buckets) {
         let exchange = exchnageCodes.Buckets[exch].Label
         if (exchange in exchanges) {
@@ -47,16 +46,13 @@ async function getOptionRIC(asset: string, maturity: string, strike: number, opt
                 pricesList.push(response[1])
                 console.log(`Option RIC for ${exchange} exchange is successfully constructed`)
             }
-            else {
-                possibleRICs = response
-            }
         }
         else {
             console.log(`The ${exchange} exchange is not supported yet`)
         }
     }
     session.close()
-    return [optionRics, pricesList, possibleRICs]
+    return [optionRics, pricesList]
 }
 
 module.exports = getOptionRIC;

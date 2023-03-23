@@ -6,7 +6,6 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const { findRICSchema } = require('../schemas/schemas');
 const ricPrices = require('../models/ricPrices');
-
 const getOptionRIC = require('../getOptionRIC');
 
 import { getSession } from '../Common/session';
@@ -44,7 +43,7 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     let objects: any = []
     await getOptionRIC(req.body.asset, req.body.maturity, req.body.strike, type, session).then((output: any) => {
         let i = -1
-        if (Object.keys(output[0]).length > 0) {
+        if (Object.keys(output[1][0]).length > 0) {
             for (let [key, value] of Object.entries(output[0])) {
                 i++
                 let vals = {
@@ -69,7 +68,6 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     res.end(JSON.stringify(objects));
     await session.close();
 }))
-
 
 router.get('/chartWorkspace/:id', catchAsync(async (req: any, res: any) => {
     const result = await ricPrices.findById(req.params.id)

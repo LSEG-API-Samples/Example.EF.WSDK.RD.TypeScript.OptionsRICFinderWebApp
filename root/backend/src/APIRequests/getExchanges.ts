@@ -4,7 +4,6 @@ import { Search } from '@refinitiv-data/data';
 const session = getSession();
 
 async function getExchangeCode(asset: string, openedSession: any = null) {
-
     const displaySearchResponse = async function (params: Search.Params) {
         const definition = Search.Definition(params);
         const searchRes = await definition.getData(session);

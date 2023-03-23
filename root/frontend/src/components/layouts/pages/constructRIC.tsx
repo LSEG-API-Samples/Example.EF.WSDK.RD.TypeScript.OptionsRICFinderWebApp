@@ -64,15 +64,16 @@ export default function ConstructRIC() {
             </ef-card>
 
             {(data as any || []).map((element: any, index: number) => {
-                if (element.asset && status as any === 200) {
+                if (element !== null && status as any === 200) {
                     return showFoundRICDialogue(element, index, handleClick)
                 }
-                else if (!element.asset && status as any === 200) {
+                else if (element === null && status as any === 200) {
                     return showNoFoundRICDialogue(element, index, handleClick)
                 }
                 else {
                     return null
                 }
+
             })}
         </div>
     )

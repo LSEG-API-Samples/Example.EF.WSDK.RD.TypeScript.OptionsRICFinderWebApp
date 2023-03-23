@@ -31,8 +31,8 @@ export function showFoundRICDialogue(element: any, index: any, handleClick: any)
 export function showNoFoundRICDialogue(element: any, index: any, handleClick: any) {
     return (
         <ef-dialog id="d1" header="Search Output" opened key={index}>
-            <p>Unfortunetly we could not find RICs with prices. Here is the list of possible ones:</p>
-            <p><i>  {element.join(",\n")}</i></p>
+            <p>Unfortunetly we could not find RICs with prices. Please check the inputs and try again</p>
+            {/* <p><i>  {element.join(",\n")}</i></p> */}
             <div slot="footer" >
                 <ef-button class="viewBtnDialogue" data-url={`/findingRICs/constructRIC`} onClick={handleClick}>New RIC</ef-button>
 

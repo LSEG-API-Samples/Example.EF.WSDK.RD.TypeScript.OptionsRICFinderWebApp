@@ -1,11 +1,9 @@
 export { };
 const moment = require('moment');
-const checkRIC = require('../helper/checkRIC');
+const getRICWithPrices = require('../helper/getRICWithPrices');
 const getExpMonth = require('../helper/getExpMonth');
 
-
-async function getIeuRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
-    let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
+function getAssetName(asset: string) {
     let assetName = '';
 
     if (asset[0] == '.') {
@@ -17,8 +15,10 @@ async function getIeuRIC(asset: string, maturity: string, strike: number, optTyp
     else {
         assetName = asset.split('.', 2)[0];
     };
+    return assetName
+}
 
-    const expDetails = getExpMonth(expDate, optType);
+function getStrikeRIC(strike: number) {
     let intPart = null;
     let decPart = null;
     let strikeRIC = '';
@@ -34,20 +34,24 @@ async function getIeuRIC(asset: string, maturity: string, strike: number, optTyp
         decPart = String(strike).split('.', 2)[1][0]
         strikeRIC = `0${String(intPart)}${decPart}`
     }
-    let possibleRICs = [];
+    return strikeRIC
+}
+
+async function getIeuRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
+    let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
+    const expDetails = getExpMonth(expDate, optType);
+    const assetName = getAssetName(asset)
+    const strikeRIC = getStrikeRIC(strike)
     const generations = ['', 'a', 'b', 'c', 'd']
+    let ricWithPrices: any = []
     for (let gen in generations) {
         const ric = `${assetName}${strikeRIC}${generations[gen]}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.L`
-        const response = await checkRIC(ric, maturity, expDetails[0], session);
-        if (Object.keys(response[1]).length !== 0) {
-            return response
+        ricWithPrices = await getRICWithPrices(ric, maturity, expDetails[0], session);
+        if (Object.keys(ricWithPrices[1]).length !== 0) {
+            return ricWithPrices
         }
-        else {
-            possibleRICs.push(response[0])
-        };
     }
-    console.log(`Here is a list of possible RICs ${possibleRICs}, however we could not find any prices for those!`)
-    return possibleRICs
+    return ricWithPrices
 }
 
 module.exports = getIeuRIC;
