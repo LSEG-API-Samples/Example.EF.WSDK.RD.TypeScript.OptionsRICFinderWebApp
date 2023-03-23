@@ -7,7 +7,6 @@ const ISINtoRIC = require('./APIRequests/getSymbol');
 const getExchangeCode = require('./APIRequests/getExchanges');
 
 async function getOptionRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
-    console.log(asset)
     const exchanges = {
         'OPQ': getOPRA,
         'IEU': getIEU,
@@ -51,7 +50,6 @@ async function getOptionRIC(asset: string, maturity: string, strike: number, opt
             console.log(`The ${exchange} exchange is not supported yet`)
         }
     }
-    session.close()
     return [optionRics, pricesList]
 }
 
