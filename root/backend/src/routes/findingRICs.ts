@@ -21,6 +21,38 @@ const validateRICRequest = (req: any, res: any, next: any) => {
     }
 }
 
+const constructRIC = async (req: any) => {
+    await session.open()
+    let ricAndPrices: any = []
+    await getOptionRIC(req.body.asset, req.body.maturity, req.body.strike, req.body.optionType, session).then((output: any) => {
+        let i = -1
+        if (Object.keys(output[1][0]).length > 0) {
+            for (let [key, value] of Object.entries(output[0])) {
+                i++
+                let vals = {
+                    asset: req.body.asset,
+                    strike: req.body.strike,
+                    maturity: req.body.maturity,
+                    ric: value,
+                    optionType: req.body.optionType,
+                    exchange: key,
+                    prices: output[1][i],
+                    createdDate: moment().format()
+                }
+                let newricPrices = new ricPrices(vals)
+                newricPrices.save()
+                ricAndPrices.push(newricPrices)
+            }
+        }
+        else {
+            ricAndPrices = [output[2]]
+        }
+    })
+    await session.close();
+    return ricAndPrices
+}
+
+
 router.get('/constructRIC', validateRICRequest, async (req: any, res: any) => {
     res.render('findingRICs/constructRIC')
 });
@@ -32,41 +64,18 @@ router.get('/showRIC', async (req: any, res: any) => {
 });
 
 router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
-    await session.open()
-    let type = ''
-    if (req.body.type === 'Call') {
-        type = 'C'
+    const response = await ricPrices.find({
+        "asset": req.body.asset,
+        "strike": req.body.strike,
+        "maturity": req.body.maturity,
+        "optionType": req.body.optionType
+    })
+    if (response.length > 0) {
+        res.end(JSON.stringify(response));
     }
     else {
-        type = 'P'
+        res.end(JSON.stringify(await constructRIC(req)));
     }
-    let objects: any = []
-    await getOptionRIC(req.body.asset, req.body.maturity, req.body.strike, type, session).then((output: any) => {
-        let i = -1
-        if (Object.keys(output[1][0]).length > 0) {
-            for (let [key, value] of Object.entries(output[0])) {
-                i++
-                let vals = {
-                    asset: req.body.asset,
-                    strike: req.body.strike,
-                    maturity: req.body.maturity,
-                    ric: value,
-                    optionType: req.body.type,
-                    exchange: key,
-                    prices: output[1][i],
-                    createdDate: moment().format()
-                }
-                let newricPrices = new ricPrices(vals)
-                newricPrices.save()
-                objects.push(newricPrices)
-            }
-        }
-        else {
-            objects = [output[2]]
-        }
-    })
-    res.end(JSON.stringify(objects));
-    await session.close();
 }))
 
 router.get('/chartWorkspace/:id', catchAsync(async (req: any, res: any) => {

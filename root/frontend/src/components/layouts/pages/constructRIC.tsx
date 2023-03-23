@@ -51,7 +51,7 @@ export default function ConstructRIC() {
                         <label htmlFor="colFormLabelSm" className="col-sm-6 col-form-label col-form-label" >Option
                             type</label>
                         <ef-select class="inputField">
-                            <ef-item value="Call">Call</ef-item>
+                            <ef-item value="Call" selected>Call</ef-item>
                             <ef-item value="Put">Put</ef-item>
                         </ef-select>
                     </div>

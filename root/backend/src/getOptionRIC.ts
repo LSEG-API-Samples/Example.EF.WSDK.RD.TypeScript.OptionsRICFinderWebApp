@@ -7,6 +7,7 @@ const ISINtoRIC = require('./APIRequests/getSymbol');
 const getExchangeCode = require('./APIRequests/getExchanges');
 
 async function getOptionRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
+    optType = optType === 'Call' ? "C" : 'P'
     const exchanges = {
         'OPQ': getOPRA,
         'IEU': getIEU,
