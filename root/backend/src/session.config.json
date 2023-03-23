@@ -3,7 +3,7 @@
 		"default": "platform",
 		"platform": {
 			"rdpUser": "YOUR MACHINE ID",
-			"rdpPassword": "YOUR PASSWORD,
+			"rdpPassword": "YOUR PASSWORD",
 			"appKey": "YOUR APP KEY"
 		},
 		"desktop": {
