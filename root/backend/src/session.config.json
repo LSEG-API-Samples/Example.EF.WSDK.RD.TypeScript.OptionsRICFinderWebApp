@@ -1,7 +1,11 @@
 {
 	"sessions": {
 		"default": "platform",
-		"platform": {},
+		"platform": {
+			"rdpUser": "YOUR MACHINE ID",
+			"rdpPassword": "YOUR PASSWORD,
+			"appKey": "YOUR APP KEY"
+		},
 		"desktop": {
 			"appKey": "YOUR APP KEY"
 		},
