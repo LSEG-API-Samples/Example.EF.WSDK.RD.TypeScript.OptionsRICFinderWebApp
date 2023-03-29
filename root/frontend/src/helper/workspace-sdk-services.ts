@@ -9,19 +9,59 @@ class WsdkHelper {
         WSDKLoader.init(
             {
                 Mode: 'sxs' as Modes.SxS,
-                // AppInstanceId: "YOUR_APP_INSTANCE_ID",
                 SxSSession: {
                     ApiKey: creds.sessions.SxSSession.ApiKey,
                     ProductId: creds.sessions.SxSSession.ProductId,
                     Type: 'sxsweb' as SxSSessionType.SxSWeb,
                 },
             },
-            ["DesktopAgent"]
+            ["DesktopAgent", {
+                name: 'DataLibrary',
+                appKey: creds.sessions.SxSSession.ApiKey,
+            }],
+
         );
     }
     public getWsdk() {
         return WSDKLoader.ready();
     }
+
+    async getStremingSession(rics: any) {
+        const wsdk = await this.getWsdk();
+        console.log('Workspace-SDK has loaded');
+        console.log('DesktopAgent plugin has loaded: ', !!wsdk.DesktopAgent);
+        const { Pricing, dataSession } = wsdk.DataLibrary;
+        try {
+            await dataSession.open();
+            const pricingStream = Pricing.Definition({
+                universe: rics,
+                fields: ['BID'],
+            }).getStream();
+            return pricingStream
+        }
+        catch (error: any) {
+            console.error('Error loading Workspace SDK');
+        }
+    }
+    // async getClosePrice(ric: any) {
+    //     const wsdk = await this.getWsdk();
+    //     console.log('Workspace-SDK has loaded');
+    //     console.log('DesktopAgent plugin has loaded: ', !!wsdk.DesktopAgent);
+    //     const { HistoricalPricing, dataSession } = wsdk.DataLibrary;
+    //     try {
+    //         await dataSession.open();
+    //         const request = HistoricalPricing.Summaries.Definition({
+    //             universe: ric,
+    //             fields: ['TRDPRC_1'],
+    //         });
+    //         const historicalPrices = await request.getData(dataSession);
+    //         return historicalPrices.data.table[0]['TRDPRC_1'];
+
+    //     }
+    //     catch (error: any) {
+    //         console.error('Error loading Workspace SDK');
+    //     }
+    // }
 
     async initialize_wsdk() {
 

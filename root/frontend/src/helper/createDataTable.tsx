@@ -25,10 +25,49 @@ function handleIcons(setData: any, table: any) {
     });
 }
 
-export default async function createDatatable(setData: any, res: any) {
-    const columns: any = createColumns(res)
+function getOptionStatus(row: any, bid: number) {
+    let today: Date = new Date();
+    let maturityDate: Date = new Date(row['maturity'])
+    if (maturityDate < today) {
+        return 'Expired'
+    }
+    else if (row['bid'] === null) {
+        return ''
+    }
+    else {
+        return (row.strike < bid && row.optionType === 'Call') ||
+            (row.strike > bid && row.optionType === 'Put') ? 'In the money' : 'Out of the money'
+    }
+}
+
+export default function createDatatable(setData: any, res: any) {
     wsdkHelper.initialize_wsdk()
-    $(document).ready(() => {
+    Object.values(res).map(element => element['bid'] = null)
+    Object.values(res).map(element => element['status'] = getOptionStatus(element, element['bid']))
+    $(document).ready(async () => {
+        (async () => {
+            let rics = Object.values(res).map(element => element['asset']);
+            let pricingStream = await wsdkHelper.getStremingSession(rics)
+            pricingStream
+                .onUpdate((update, instrument) => {
+                    updateTable(instrument, update.BID)
+                })
+                .onStatus((status, instrument) => console.log('logs', 'Status for ' + instrument, status))
+                .onError(err => console.log('logs', 'PricingStream error:', err));
+            await pricingStream.open();
+        })()
+
+        async function updateTable(instrument: string, bid: any) {
+            let rowIndexes: any = [];
+            await tableRICs.rows(function (idx: any, data: any) {
+                return data.asset === instrument ? rowIndexes.push(idx) : false;
+            });
+            rowIndexes.map((ind: any) => tableRICs.cell({ row: ind, column: 8 }).data(bid).draw(false))
+            rowIndexes.map((ind: any) => tableRICs.cell({ row: ind, column: 9 }).data(getOptionStatus(tableRICs.row(ind).data(), bid)).draw(false))
+
+        }
+
+        const columns: any = createColumns(res)
         const tableRICs = $("#showRICs").DataTable({
 
             data: Object.values(res),
@@ -36,6 +75,7 @@ export default async function createDatatable(setData: any, res: any) {
             retrieve: true,
             dom: 'Bfrtip',
             processing: true,
+            pageLength: 10,
             select: {
                 style: "single",
             },
@@ -95,21 +135,33 @@ export default async function createDatatable(setData: any, res: any) {
                     searchable: false,
                 },
                 {
-                    target: 1,
+                    target: 2,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
                         ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OV', cellData)}><u>{cellData}</u></a>, td);
                     }
 
                 },
                 {
-                    target: 4,
+                    target: 5,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
                         if (!cellData.includes("^")) {
                             ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OPR', cellData)}><u>{cellData}</u></a>, td);
                         }
                     }
+                },
+
+            ],
+            rowCallback: function (row: any, data: any, index: any) {
+                if (data.status === 'Expired') {
+                    $(row).find('td:eq(8)').css('color', 'grey');
                 }
-            ]
+                else if (data.status === 'Out of the money') {
+                    $(row).find('td:eq(8)').css('color', 'red');
+                }
+                else if (data.status === 'In the money') {
+                    $(row).find('td:eq(8)').css('color', 'green');
+                }
+            }
         });
         handleIcons(setData, tableRICs)
     })
