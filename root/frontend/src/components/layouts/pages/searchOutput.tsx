@@ -6,7 +6,7 @@ export function showFoundRICDialogue(element: any, index: any, handleClick: any)
     if (element.ric.indexOf("^") === -1) {
         handleClickText = 'Instrument overview'
         handleClickInstrument = function () {
-            wsdkHelper.openApp("OV", element.ric)
+            wsdkHelper.openApp("OV", element.ric, 'tab')
         }
     }
 
@@ -32,7 +32,6 @@ export function showNoFoundRICDialogue(element: any, index: any, handleClick: an
     return (
         <ef-dialog id="d1" header="Search Output" opened key={index}>
             <p>Unfortunetly we could not find RICs with prices. Please check the inputs and try again</p>
-            {/* <p><i>  {element.join(",\n")}</i></p> */}
             <div slot="footer" >
                 <ef-button class="viewBtnDialogue" data-url={`/findingRICs/constructRIC`} onClick={handleClick}>New RIC</ef-button>
 

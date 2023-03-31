@@ -78,27 +78,12 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     }
 }))
 
-router.get('/chartWorkspace/:id', catchAsync(async (req: any, res: any) => {
-    const result = await ricPrices.findById(req.params.id)
-    const pricesValues = JSON.stringify(result.prices);
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(result));
-}));
-
 router.get('/pricesChart/:id', catchAsync(async (req: any, res: any) => {
     const result = await ricPrices.findById(req.params.id)
     const pricesValues = JSON.stringify(result.prices);
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result));
 }));
-
-router.get('/quotesWorkspace/:id', catchAsync(async (req: any, res: any) => {
-    const result = await ricPrices.findById(req.params.id)
-    const pricesValues = JSON.stringify(result.prices);
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(result));
-}));
-
 
 router.delete('/showRIC/:id', catchAsync(async (req: any, res: any) => {
     let ric = await ricPrices.findById(req.params.id)

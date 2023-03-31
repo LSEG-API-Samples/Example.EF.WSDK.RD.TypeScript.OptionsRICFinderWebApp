@@ -32,8 +32,6 @@ import "datatables.net-buttons/js/buttons.print.js";
 
 import Home from './components/layouts/pages/home'
 import ShowRIC from './components/layouts/pages/constructedRICs'
-import ShowChartWorkspace from './components/layouts/pages/chartWorkspace'
-import ShowQuotesWorkspace from './components/layouts/pages/quotesWorkspace'
 import ShowPricesChart from './components/layouts/pages/pricesChart'
 
 import ConstructRIC from './components/layouts/pages/constructRIC'
@@ -49,8 +47,6 @@ root.render(
       <Route path='/' element={<Home />} />
       <Route path='/findingRICs/constructRIC' element={<ConstructRIC />} />
       <Route path='/findingRICs/showRIC' element={<ShowRIC />} />
-      <Route path='/findingRICs/chartWorkspace/:id' element={<ShowChartWorkspace />} />
-      <Route path='/findingRICs/quotesWorkspace/:id' element={<ShowQuotesWorkspace />} />
       <Route path='/findingRICs/pricesChart/:id' element={<ShowPricesChart />} />
 
     </Routes>

@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import { wsdkHelper } from './workspace-sdk-services';
-import deleteSelected from './handleDelete'
+import handleDelete from './handleDelete'
+import handleClick from './handleClick';
 const $ = require('jquery');
 
 function createColumns(res: any) {
@@ -11,16 +12,13 @@ function createColumns(res: any) {
     return columns
 }
 
-function handleIcons(setData: any, table: any) {
+function deleteRow(setData: any, table: any) {
     $('#showRICs tbody').on('click', 'ef-icon', function (this: any) {
         let action = this.id
         let data = table.row($(this).parents('tr')).data();
         if (action === "delete") {
-            deleteSelected(setData, data._id)
+            handleDelete(setData, data._id)
             table.row($(this).parents('tr')).remove().draw();
-        }
-        else {
-            window.location.href = `${action}/${data._id}`
         }
     });
 }
@@ -31,7 +29,7 @@ function getOptionStatus(row: any, bid: number) {
     if (maturityDate < today) {
         return 'Expired'
     }
-    else if (row['bid'] === null) {
+    if (row['bid'] === null) {
         return ''
     }
     else {
@@ -109,13 +107,13 @@ export default function createDatatable(setData: any, res: any) {
                             ReactDOM.render(
                                 <div id="icons">
                                     <span title="See instrument price chart in Workspace">
-                                        <ef-icon icon="chart-line-bar" id="chartWorkspace"></ef-icon>
+                                        <ef-icon icon="chart-line-bar" id="chartWorkspace" onClick={() => wsdkHelper.openApp('CHT', rowData.asset, 'popup')}></ef-icon>
                                     </span>
                                     <span title="See instrument price">
-                                        <ef-icon icon="display-all-fields" id="pricesChart"></ef-icon>
+                                        <ef-icon icon="display-all-fields" id="pricesChart" data-url={`pricesChart/${rowData._id}`} onClick={handleClick} ></ef-icon>
                                     </span>
                                     <span title="See instrument quotes in Workspace">
-                                        <ef-icon icon="open-quote" id="quotesWorkspace"></ef-icon>
+                                        <ef-icon icon="open-quote" id="quotesWorkspace" onClick={() => wsdkHelper.openApp('Q', rowData.asset, 'popup')}></ef-icon>
                                     </span>
                                     <span title="Delete the record">
                                         <ef-icon icon="dsc-delete-chart" id="delete"></ef-icon>
@@ -137,7 +135,7 @@ export default function createDatatable(setData: any, res: any) {
                 {
                     target: 2,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
-                        ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OV', cellData)}><u>{cellData}</u></a>, td);
+                        ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OV', cellData, 'tab')}><u>{cellData}</u></a>, td);
                     }
 
                 },
@@ -145,7 +143,7 @@ export default function createDatatable(setData: any, res: any) {
                     target: 5,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
                         if (!cellData.includes("^")) {
-                            ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OPR', cellData)}><u>{cellData}</u></a>, td);
+                            ReactDOM.render(<a href="#/" id="ric-wsdk" onClick={() => wsdkHelper.openAppOrBroadcast('OPR', cellData, 'tab')}><u>{cellData}</u></a>, td);
                         }
                     }
                 },
@@ -163,6 +161,6 @@ export default function createDatatable(setData: any, res: any) {
                 }
             }
         });
-        handleIcons(setData, tableRICs)
+        deleteRow(setData, tableRICs)
     })
 }

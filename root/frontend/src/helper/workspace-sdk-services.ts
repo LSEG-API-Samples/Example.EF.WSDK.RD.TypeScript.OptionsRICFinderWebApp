@@ -28,7 +28,6 @@ class WsdkHelper {
 
     async getStremingSession(rics: any) {
         const wsdk = await this.getWsdk();
-        console.log('Workspace-SDK has loaded');
         console.log('DesktopAgent plugin has loaded: ', !!wsdk.DesktopAgent);
         const { Pricing, dataSession } = wsdk.DataLibrary;
         try {
@@ -43,25 +42,6 @@ class WsdkHelper {
             console.error('Error loading Workspace SDK');
         }
     }
-    // async getClosePrice(ric: any) {
-    //     const wsdk = await this.getWsdk();
-    //     console.log('Workspace-SDK has loaded');
-    //     console.log('DesktopAgent plugin has loaded: ', !!wsdk.DesktopAgent);
-    //     const { HistoricalPricing, dataSession } = wsdk.DataLibrary;
-    //     try {
-    //         await dataSession.open();
-    //         const request = HistoricalPricing.Summaries.Definition({
-    //             universe: ric,
-    //             fields: ['TRDPRC_1'],
-    //         });
-    //         const historicalPrices = await request.getData(dataSession);
-    //         return historicalPrices.data.table[0]['TRDPRC_1'];
-
-    //     }
-    //     catch (error: any) {
-    //         console.error('Error loading Workspace SDK');
-    //     }
-    // }
 
     async initialize_wsdk() {
 
@@ -72,17 +52,17 @@ class WsdkHelper {
         });
     }
 
-    async openApp(appName: string, ric: string) {
-        console.log("openApp");
+    async openApp(appName: string, ric: string, launchtype: any) {
+        console.log(`openApp ${appName} for ${ric}`);
         const wsdk = await this.getWsdk();
         await wsdk.DesktopAgent.open(
-            { name: appName },
+            { name: appName, wsdkOptions: { target: launchtype } },
             {
                 type: "fdc3.instrument",
                 id: {
                     RIC: ric,
                 },
-            }
+            },
         );
         this.appIsAlreadyOpened = true;
         this.openedAppName = appName
@@ -99,12 +79,12 @@ class WsdkHelper {
         });
     }
 
-    async openAppOrBroadcast(appName: string, ric: string) {
+    async openAppOrBroadcast(appName: string, ric: string, launchtype: any) {
         console.log(this.openedAppName, appName)
         if (this.appIsAlreadyOpened && this.openedAppName === appName) {
             await this.broadcast(ric);
         } else {
-            await this.openApp(appName, ric);
+            await this.openApp(appName, ric, launchtype);
         }
     }
 }
