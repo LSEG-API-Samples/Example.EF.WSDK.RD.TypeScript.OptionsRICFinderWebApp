@@ -35,7 +35,7 @@ export default function ConstructRIC() {
                 <span slot="header"><b>Construct Option RIC</b></span>
                 <form onSubmit={handleSubmit} id="requestForm">
                     <div >
-                        <label htmlFor="asset">Assset RIC/ISIN</label>
+                        <label htmlFor="asset">Asset RIC/ISIN</label>
                         <ef-text-field class="inputField" id="asset" value="BARC.L" placeholder="Insert asset RIC or ISIN"></ef-text-field>
                     </div>
                     <div>
