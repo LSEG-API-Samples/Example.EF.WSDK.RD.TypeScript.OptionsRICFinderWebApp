@@ -9,3 +9,4 @@ export default function deleteSelected(setData: any, id: any) {
         };
     })()
 }
+
