@@ -108,4 +108,5 @@ class WsdkHelper {
         }
     }
 }
+
 export const wsdkHelper = new WsdkHelper();
