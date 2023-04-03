@@ -41,7 +41,7 @@ export default function ConstructRIC() {
                     <div>
                         <label htmlFor="maturity">Maturity
                             date</label>
-                        <ef-text-field class="inputField" id="maturity" value="2023-03-18" placeholder="Maturity date in yyyy-mm-dd"></ef-text-field>
+                        <ef-datetime-picker class="inputField" id="maturity" value="2023-03-18" placeholder="Maturity date in yyyy-mm-dd"></ef-datetime-picker>
                     </div>
                     <div>
                         <label htmlFor="strike">Strike</label>

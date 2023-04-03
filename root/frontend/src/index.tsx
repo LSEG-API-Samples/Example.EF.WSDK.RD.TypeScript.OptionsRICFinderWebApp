@@ -14,6 +14,8 @@ import '@refinitiv-ui/elements/layout';
 import '@refinitiv-ui/elements/layout/themes/halo/light';
 import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elements/number-field/themes/halo/light';
+import '@refinitiv-ui/elements/datetime-picker';
+import '@refinitiv-ui/elements/datetime-picker/themes/halo/light';
 import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elements/text-field/themes/halo/light';
 import '@refinitiv-ui/elements/select';
