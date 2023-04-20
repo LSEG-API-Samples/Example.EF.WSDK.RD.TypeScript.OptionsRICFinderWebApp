@@ -100,31 +100,30 @@ export default function createDatatable(setData: any, res: any) {
                 {
                     targets: -1,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
-                        let today: Date = new Date();
-                        let maturityDate: Date = new Date(rowData['maturity'])
-                        if (maturityDate > today) {
-
-                            ReactDOM.render(
-                                <div id="icons">
-                                    <span title="See instrument price chart in Workspace">
-                                        <ef-icon icon="chart-line-bar" id="chartWorkspace" onClick={() => wsdkHelper.openApp('CHT', rowData.asset, 'popup')}></ef-icon>
-                                    </span>
-                                    <span title="See instrument price">
-                                        <ef-icon icon="display-all-fields" id="pricesChart" data-url={`pricesChart/${rowData._id}`} onClick={handleClick} ></ef-icon>
-                                    </span>
-                                    <span title="See instrument quotes in Workspace">
-                                        <ef-icon icon="open-quote" id="quotesWorkspace" onClick={() => wsdkHelper.openApp('Q', rowData.asset, 'popup')}></ef-icon>
-                                    </span>
-                                    <span title="Delete the record">
-                                        <ef-icon icon="dsc-delete-chart" id="delete"></ef-icon>
-                                    </span>
-                                </div >, td)
-                        }
+                        // let today: Date = new Date();
+                        // let maturityDate: Date = new Date(rowData['maturity'])
+                        // if (maturityDate > today) {
+                        ReactDOM.render(
+                            <div id="icons">
+                                <span title="See instrument price chart in Workspace">
+                                    <ef-icon icon="chart-line-bar" id="chartWorkspace" onClick={() => wsdkHelper.openApp('CHT', rowData.ric, 'popup')}></ef-icon>
+                                </span>
+                                <span title="See instrument price">
+                                    <ef-icon icon="display-all-fields" id="pricesChart" data-url={`pricesChart/${rowData._id}`} onClick={handleClick} ></ef-icon>
+                                </span>
+                                <span title="See instrument quotes in Workspace">
+                                    <ef-icon icon="open-quote" id="quotesWorkspace" onClick={() => wsdkHelper.openApp('Q', rowData.ric, 'popup')}></ef-icon>
+                                </span>
+                                <span title="Delete the record">
+                                    <ef-icon icon="dsc-delete-chart" id="delete"></ef-icon>
+                                </span>
+                            </div >, td)
+                        // }
                     },
-                    defaultContent:
-                        "<span title=\"See instrument price chart in Workspace\"><ef-icon icon = \"chart-line-bar\" id=\"chartWorkspace\"></ef-icon></span>" +
-                        "<span title=\"See instrument price chart\"><ef-icon icon = \"display-all-fields\" id=\"pricesChart\"></ef-icon></span>" +
-                        "<span title=\"Delete the record\"><ef-icon icon = \"dsc-delete-chart\" id=\"delete\"></ef-icon></span>",
+                    // defaultContent:
+                    //     "<span title=\"See instrument price chart in Workspace\"><ef-icon icon = \"chart-line-bar\" id=\"chartWorkspace\"></ef-icon></span>" +
+                    //     "<span title=\"See instrument price chart\"><ef-icon icon = \"display-all-fields\" id=\"pricesChart\"></ef-icon></span>" +
+                    //     "<span title=\"Delete the record\"><ef-icon icon = \"dsc-delete-chart\" id=\"delete\"></ef-icon></span>",
                     className: 'dt-body-center'
                 },
                 {

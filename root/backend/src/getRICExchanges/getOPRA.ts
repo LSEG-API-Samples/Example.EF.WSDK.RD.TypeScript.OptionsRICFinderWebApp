@@ -1,6 +1,8 @@
 export { };
 const moment = require('moment');
 const getRICWithPrices = require('../helper/getRICWithPrices');
+const getExpComponent = require('../helper/getExpComponent');
+
 
 function getExpMonth(optType: string, strike: number, maturity: string, expDate: Date, ident: object) {
     let expMonth = '';
@@ -98,9 +100,10 @@ async function getOpraRIC(asset: string, maturity: string, strike: number, optTy
     const expMonth = getExpMonth(optType, strike, maturity, expDate, ident)
     const assetName = getAssetName(asset)
     const strikeRIC = getStrikeRIC(strike)
-    const ric = `${assetName}${expMonth}${moment(expDate).format('D')}${moment(expDate).format('Y').slice(-2)}${strikeRIC}.U`
+    const expComp = getExpComponent(expDate, ident)
+    const ric = `${assetName}${expMonth}${moment(expDate).format('D')}${moment(expDate).format('Y').slice(-2)}${strikeRIC}.U${expComp}`
     let ricWithPrices: any = []
-    ricWithPrices = await getRICWithPrices(ric, maturity, ident, session)
+    ricWithPrices = await getRICWithPrices(ric, maturity, session)
     if (Object.keys(ricWithPrices[1]).length !== 0) {
         return ricWithPrices
     }

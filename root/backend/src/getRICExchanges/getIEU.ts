@@ -2,7 +2,10 @@ export { };
 const moment = require('moment');
 const getRICWithPrices = require('../helper/getRICWithPrices');
 const getExpMonth = require('../helper/getExpMonth');
+const getExpComponent = require('../helper/getExpComponent');
 
+import { getSession } from '../Common/session';
+const session = getSession();
 function getAssetName(asset: string) {
     let assetName = '';
 
@@ -38,20 +41,30 @@ function getStrikeRIC(strike: number) {
 }
 
 async function getIeuRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
+    await session.open()
+
     let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
     const expDetails = getExpMonth(expDate, optType);
     const assetName = getAssetName(asset)
     const strikeRIC = getStrikeRIC(strike)
+    const expComp = getExpComponent(expDate, expDetails[0])
     const generations = ['', 'a', 'b', 'c', 'd']
     let ricWithPrices: any = []
     for (let gen in generations) {
-        const ric = `${assetName}${strikeRIC}${generations[gen]}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.L`
-        ricWithPrices = await getRICWithPrices(ric, maturity, expDetails[0], session);
+        const ric = `${assetName}${strikeRIC}${generations[gen]}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.L${expComp}`
+        ricWithPrices = await getRICWithPrices(ric, maturity, session);
         if (Object.keys(ricWithPrices[1]).length !== 0) {
             return ricWithPrices
         }
     }
     return ricWithPrices
 }
+
+
+
+getIeuRIC('.FTSE', '2022-06-30', 7000, 'C', session).then((a: any) => {
+    console.log(a)
+})
+
 
 module.exports = getIeuRIC;
