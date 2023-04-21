@@ -36,12 +36,11 @@ async function getOseRIC(asset: string, maturity: string, strike: number, optTyp
     const expComp = getExpComponent(expDate, expDetails[0])
     const generations = ['Y', 'Z', 'A', 'B', 'C'];
     const JNET = ['', 'L', 'R']
-    let ricWithPrices: any = []
     if (asset[0] == '.') {
         for (let jnet in JNET) {
             const ric = `${assetName}${JNET[jnet]}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.OS${expComp}`
-            ricWithPrices = await getRICWithPrices(ric, maturity, session);
-            if (Object.keys(ricWithPrices[1]).length !== 0) {
+            let ricWithPrices = await getRICWithPrices(ric, maturity, session);
+            if (Object.keys(ricWithPrices[1]).length > 0) {
                 return ricWithPrices
             }
         }
@@ -50,14 +49,14 @@ async function getOseRIC(asset: string, maturity: string, strike: number, optTyp
         for (const jnet in JNET) {
             for (let gen in generations) {
                 const ric = `${assetName}${JNET[jnet]}${generations[gen]}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.OS${expComp}`
-                ricWithPrices = await getRICWithPrices(ric, maturity, session);
-                if (Object.keys(ricWithPrices[1]).length !== 0) {
+                let ricWithPrices = await getRICWithPrices(ric, maturity, session);
+                if (Object.keys(ricWithPrices[1]).length > 0) {
                     return ricWithPrices
                 }
             }
         }
     };
-    return ricWithPrices
+    return []
 };
 
 module.exports = getOseRIC;

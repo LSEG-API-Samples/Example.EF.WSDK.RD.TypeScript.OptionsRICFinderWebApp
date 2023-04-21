@@ -23,25 +23,24 @@ async function getHkRIC(asset: string, maturity: string, strike: number, optType
     const expDetails = getExpMonth(expDate, optType);
     let [assetName, strikeRIC] = getAssetNameAndStrikeRIC(asset, strike)
     const expComp = getExpComponent(expDate, expDetails[0])
-    let ricWithPrices: any = []
     if (asset[0] == '.') {
         const ric = `${assetName}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.HF${expComp}`
-        ricWithPrices = await getRICWithPrices(ric, maturity, session);
-        if (Object.keys(ricWithPrices[1]).length !== 0) {
+        let ricWithPrices = await getRICWithPrices(ric, maturity, session);
+        if (Object.keys(ricWithPrices[1]).length > 0) {
             return ricWithPrices
         }
     }
     else {
         for (let i = 0; i <= 3; i++) {
             const ric = `${assetName}${strikeRIC}${String(i)}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.HK${expComp}`
-            ricWithPrices = await getRICWithPrices(ric, maturity, session);
-            if (Object.keys(ricWithPrices[1]).length !== 0) {
+            let ricWithPrices = await getRICWithPrices(ric, maturity, session);
+            if (Object.keys(ricWithPrices[1]).length > 0) {
                 return ricWithPrices
             }
         };
 
     };
-    return ricWithPrices
+    return []
 }
 
 module.exports = getHkRIC;

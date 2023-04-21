@@ -7,7 +7,7 @@ async function getRICWithPrices(ric: string, maturity: string, session: any) {
     let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');;
     let sDate = moment().subtract(90, 'days').format('YYYY-MM-DD')
     let eDate = moment().format('YYYY-MM-DD');
-    if (expDate < moment().format('YYYY-MM-DD')) {
+    if (ric.includes("^")) {
         sDate = moment(expDate).subtract(90, 'days').format('YYYY-MM-DD')
         eDate = moment(expDate).format('YYYY-MM-DD')
     }

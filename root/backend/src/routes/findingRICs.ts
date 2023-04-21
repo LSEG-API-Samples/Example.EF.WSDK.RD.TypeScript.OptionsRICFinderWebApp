@@ -28,11 +28,12 @@ const constructRIC = async (req: any) => {
         let i = -1
         if (Object.keys(output[1][0]).length > 0) {
             for (let [key, value] of Object.entries(output[0])) {
+
                 i++
                 let vals = {
                     asset: req.body.asset,
                     strike: req.body.strike,
-                    maturity: req.body.maturity,
+                    maturity: output[2][i],
                     ric: value,
                     optionType: req.body.optionType,
                     exchange: key,
@@ -67,7 +68,7 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     const response = await ricPrices.find({
         "asset": req.body.asset,
         "strike": req.body.strike,
-        "maturity": req.body.maturity,
+        "maturity": { $regex: req.body.maturity.slice(0, 7) },
         "optionType": req.body.optionType
     })
     if (response.length > 0) {

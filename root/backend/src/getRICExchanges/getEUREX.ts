@@ -61,15 +61,14 @@ async function getEurexRIC(asset: string, maturity: string, strike: number, optT
     const strikeRIC = getStrikeRIC(strike)
     const expComp = getExpComponent(expDate, expDetails[0])
     const generations = ['', 'a', 'b', 'c', 'd']
-    let ricWithPrices: any = []
     for (let gen in generations) {
         const ric = `${assetName}${strikeRIC}${generations[gen]}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.EX${expComp}`
-        ricWithPrices = await getRICWithPrices(ric, maturity, session);
-        if (Object.keys(ricWithPrices[1]).length !== 0) {
+        let ricWithPrices = await getRICWithPrices(ric, maturity, session);
+        if (Object.keys(ricWithPrices[1]).length > 0) {
             return ricWithPrices
         }
     }
-    return ricWithPrices
+    return []
 }
 
 module.exports = getEurexRIC;

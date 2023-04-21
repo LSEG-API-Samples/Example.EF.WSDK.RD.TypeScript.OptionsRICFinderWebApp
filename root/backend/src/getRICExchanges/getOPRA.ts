@@ -102,12 +102,11 @@ async function getOpraRIC(asset: string, maturity: string, strike: number, optTy
     const strikeRIC = getStrikeRIC(strike)
     const expComp = getExpComponent(expDate, ident)
     const ric = `${assetName}${expMonth}${moment(expDate).format('D')}${moment(expDate).format('Y').slice(-2)}${strikeRIC}.U${expComp}`
-    let ricWithPrices: any = []
-    ricWithPrices = await getRICWithPrices(ric, maturity, session)
-    if (Object.keys(ricWithPrices[1]).length !== 0) {
+    let ricWithPrices = await getRICWithPrices(ric, maturity, session)
+    if (Object.keys(ricWithPrices[1]).length > 0) {
         return ricWithPrices
     }
-    return ricWithPrices
+    return []
 
 }
 
