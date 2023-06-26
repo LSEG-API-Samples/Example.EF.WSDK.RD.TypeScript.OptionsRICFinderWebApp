@@ -1,5 +1,5 @@
 import * as WSDKLoader from '@refinitiv-workspace-sdk/loader';
-import { Modes, SxSSessionType, } from '@refinitiv/workspace-sdk-core';
+import { Modes, SxSSessionType, } from '@refinitiv-types/workspace-sdk-core';
 import creds from '../session.config.json';
 
 class WsdkHelper {

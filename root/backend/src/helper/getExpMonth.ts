@@ -1,7 +1,7 @@
 export { };
 const moment = require('moment');
 
-function getExpMont(expDate: string, optType: string) {
+function getExpMonth(expDate: string, optType: string) {
 
     let expMonth = '';
     const ident = {
@@ -28,4 +28,4 @@ function getExpMont(expDate: string, optType: string) {
     return [ident, expMonth]
 }
 
-module.exports = getExpMont;
+module.exports = getExpMonth;

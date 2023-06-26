@@ -4,8 +4,6 @@ const getRICWithPrices = require('../helper/getRICWithPrices');
 const getExpMonth = require('../helper/getExpMonth');
 const getExpComponent = require('../helper/getExpComponent');
 
-import { getSession } from '../Common/session';
-const session = getSession();
 function getAssetName(asset: string) {
     let assetName = '';
 
@@ -41,7 +39,6 @@ function getStrikeRIC(strike: number) {
 }
 
 async function getIeuRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
-    await session.open()
 
     let expDate = moment(new Date(maturity)).format('YYYY-MM-DD');
     const expDetails = getExpMonth(expDate, optType);

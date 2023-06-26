@@ -6,7 +6,7 @@
     "@lit-labs/react": "^1.1.1",
     "@refinitiv-ui/elements": "^6.7.1",
     "@refinitiv-ui/halo-theme": "^6.4.2",
-    "@refinitiv-workspace-sdk/loader": "^3.2.0-rc4",
+    "@refinitiv-workspace-sdk/loader": "^3.2.0-rc7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
