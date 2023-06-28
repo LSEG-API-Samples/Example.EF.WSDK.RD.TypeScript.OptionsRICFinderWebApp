@@ -7,6 +7,13 @@ const ISINtoRIC = require('./APIRequests/getSymbol');
 const getExchangeCode = require('./APIRequests/getExchanges');
 const getExpiryDate = require('./helper/getExpDate')
 
+async function getAssetRic(asset: string) {
+    let ric = asset
+    if (!asset.includes('.')) {
+        ric = await ISINtoRIC(asset)
+    }
+    return ric
+}
 
 async function getOptionRIC(asset: string, maturity: string, strike: number, optType: string, session: any) {
     optType = optType === 'Call' ? "C" : 'P'
@@ -30,11 +37,8 @@ async function getOptionRIC(asset: string, maturity: string, strike: number, opt
     let optionRics = {}
     let pricesList = []
     let expDates = []
-    let ric = asset
+    let ric = await getAssetRic(asset)
 
-    if (!asset.includes('.')) {
-        ric = await ISINtoRIC(asset)
-    }
     if (ric.length) {
         const exchnageCodes = await getExchangeCode(ric)
         for (let exch in exchnageCodes.Buckets) {

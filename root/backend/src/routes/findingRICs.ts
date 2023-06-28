@@ -67,7 +67,7 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     const response = await ricPrices.find({
         "asset": req.body.asset.toString(),
         "strike": req.body.strike.toString(),
-        "maturity": { $regex: req.body.maturity.slice(0, 7) },
+        "maturity": { $regex: req.body.maturity.toString().slice(0, 7) },
         "optionType": req.body.optionType.toString()
     })
     if (response.length > 0) {
