@@ -40,8 +40,12 @@ function getOptionStatus(row: any, bid: number) {
 
 export default function createDatatable(setData: any, res: any) {
     wsdkHelper.initialize_wsdk()
-    Object.values(res).map(element => element['bid'] = null)
-    Object.values(res).map(element => element['status'] = getOptionStatus(element, element['bid']))
+    Object.values(res).forEach(element => {
+        element['bid'] = null;
+    });
+    Object.values(res).forEach(element => {
+        element['status'] = getOptionStatus(element, element['bid']);
+    });
     $(document).ready(async () => {
         (async () => {
             let rics = Object.values(res).map(element => element['asset']);
@@ -100,9 +104,6 @@ export default function createDatatable(setData: any, res: any) {
                 {
                     targets: -1,
                     createdCell: (td: any, cellData: any, rowData: any, row: any, col: any) => {
-                        // let today: Date = new Date();
-                        // let maturityDate: Date = new Date(rowData['maturity'])
-                        // if (maturityDate > today) {
                         ReactDOM.render(
                             <div id="icons">
                                 <span title="See instrument price chart in Workspace">
@@ -118,12 +119,7 @@ export default function createDatatable(setData: any, res: any) {
                                     <ef-icon icon="dsc-delete-chart" id="delete"></ef-icon>
                                 </span>
                             </div >, td)
-                        // }
                     },
-                    // defaultContent:
-                    //     "<span title=\"See instrument price chart in Workspace\"><ef-icon icon = \"chart-line-bar\" id=\"chartWorkspace\"></ef-icon></span>" +
-                    //     "<span title=\"See instrument price chart\"><ef-icon icon = \"display-all-fields\" id=\"pricesChart\"></ef-icon></span>" +
-                    //     "<span title=\"Delete the record\"><ef-icon icon = \"dsc-delete-chart\" id=\"delete\"></ef-icon></span>",
                     className: 'dt-body-center'
                 },
                 {

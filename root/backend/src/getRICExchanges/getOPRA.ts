@@ -28,7 +28,7 @@ function getExpMonth(optType: string, strike: number, maturity: string, expDate:
 
 function getAssetName(asset: string) {
     let assetName = '';
-    if (asset[0] == '.') {
+    if (asset.startsWith('.')) {
         assetName = asset.split('.', 2)[1];
     }
     else {

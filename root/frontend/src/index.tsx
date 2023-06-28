@@ -41,7 +41,7 @@ import Navbar from './components/layouts/navbar';
 import Footer from './components/layouts/footer';
 import './App.css';
 
-const root = createRoot(document.getElementById("root") as HTMLElement);
+const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Navbar />

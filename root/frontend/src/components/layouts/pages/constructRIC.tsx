@@ -22,7 +22,7 @@ export default function ConstructRIC() {
             headers: { 'content-type': 'application/json' }
         })
         if (res.status === 200) {
-            setStatus((await res as any).status)
+            setStatus((res as any).status)
             res = await res.json()
             setData(res as any)
         }

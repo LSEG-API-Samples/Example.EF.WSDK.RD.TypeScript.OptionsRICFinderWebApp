@@ -7,7 +7,7 @@ const getExpComponent = require('../helper/getExpComponent');
 function getAssetNameAndStrikeRIC(asset: string, strike: number) {
     let assetName = '';
     let strikeRIC = '';
-    if (asset[0] == '.') {
+    if (asset.startsWith('.')) {
         assetName = asset.split('.', 2)[1];
         strikeRIC = String(Math.floor(strike));
     }
@@ -23,7 +23,7 @@ async function getHkRIC(asset: string, maturity: string, strike: number, optType
     const expDetails = getExpMonth(expDate, optType);
     let [assetName, strikeRIC] = getAssetNameAndStrikeRIC(asset, strike)
     const expComp = getExpComponent(expDate, expDetails[0])
-    if (asset[0] == '.') {
+    if (asset.startsWith('.')) {
         const ric = `${assetName}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.HF${expComp}`
         let ricWithPrices = await getRICWithPrices(ric, maturity, session);
         if (Object.keys(ricWithPrices[1]).length > 0) {

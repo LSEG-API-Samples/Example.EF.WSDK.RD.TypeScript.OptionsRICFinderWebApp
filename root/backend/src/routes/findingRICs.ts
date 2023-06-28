@@ -66,10 +66,10 @@ router.get('/showRIC', async (req: any, res: any) => {
 
 router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     const response = await ricPrices.find({
-        "asset": req.body.asset,
-        "strike": req.body.strike,
+        "asset": { $eq: req.body.asset },
+        "strike": { $eq: req.body.strike },
         "maturity": { $regex: req.body.maturity.slice(0, 7) },
-        "optionType": req.body.optionType
+        "optionType": { $eq: req.body.optionType }
     })
     if (response.length > 0) {
         res.end(JSON.stringify(response));
@@ -81,13 +81,13 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
 
 router.get('/pricesChart/:id', catchAsync(async (req: any, res: any) => {
     const result = await ricPrices.findById(req.params.id)
-    const pricesValues = JSON.stringify(result.prices);
+    // const pricesValues = JSON.stringify(result.prices);
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result));
 }));
 
 router.delete('/showRIC/:id', catchAsync(async (req: any, res: any) => {
-    let ric = await ricPrices.findById(req.params.id)
+    // let ric = await ricPrices.findById(req.params.id)
     await ricPrices.findByIdAndDelete(req.params.id);
     const allricPrices = await ricPrices.find({}).sort({ createdDate: -1 });
     res.setHeader('Content-Type', 'application/json');
