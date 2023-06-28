@@ -45,7 +45,7 @@ export default function ConstructRIC() {
                     </div>
                     <div>
                         <label htmlFor="strike">Strike</label>
-                        <ef-number-field class="inputField" id="strike" value='210' placeholder="Insert strike price"></ef-number-field>
+                        <ef-number-field class="inputField" id="strike" value='210' step="0.01" placeholder="Insert strike price"></ef-number-field>
                     </div>
                     <div >
                         <label htmlFor="colFormLabelSm" className="col-sm-6 col-form-label col-form-label" >Option
@@ -73,7 +73,6 @@ export default function ConstructRIC() {
                 else {
                     return null
                 }
-
             })}
         </div>
     )

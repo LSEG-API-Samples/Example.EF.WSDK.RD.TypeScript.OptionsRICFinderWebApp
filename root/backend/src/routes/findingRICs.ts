@@ -26,9 +26,8 @@ const constructRIC = async (req: any) => {
     let ricAndPrices: any = []
     await getOptionRIC(req.body.asset, req.body.maturity, req.body.strike, req.body.optionType, session).then((output: any) => {
         let i = -1
-        if (Object.keys(output[1][0]).length > 0) {
+        if (Object.keys(output[1][0] || {}).length > 0) {
             for (let [key, value] of Object.entries(output[0])) {
-
                 i++
                 let vals = {
                     asset: req.body.asset,
@@ -46,7 +45,7 @@ const constructRIC = async (req: any) => {
             }
         }
         else {
-            ricAndPrices = [output[2]]
+            ricAndPrices = [null]
         }
     })
     await session.close();
@@ -66,10 +65,10 @@ router.get('/showRIC', async (req: any, res: any) => {
 
 router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
     const response = await ricPrices.find({
-        "asset": { $eq: req.body.asset },
-        "strike": { $eq: req.body.strike },
+        "asset": req.body.asset.toString(),
+        "strike": req.body.strike.toString(),
         "maturity": { $regex: req.body.maturity.slice(0, 7) },
-        "optionType": { $eq: req.body.optionType }
+        "optionType": req.body.optionType.toString()
     })
     if (response.length > 0) {
         res.end(JSON.stringify(response));
@@ -81,13 +80,11 @@ router.post('/constructRIC', catchAsync(async (req: any, res: any) => {
 
 router.get('/pricesChart/:id', catchAsync(async (req: any, res: any) => {
     const result = await ricPrices.findById(req.params.id)
-    // const pricesValues = JSON.stringify(result.prices);
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result));
 }));
 
 router.delete('/showRIC/:id', catchAsync(async (req: any, res: any) => {
-    // let ric = await ricPrices.findById(req.params.id)
     await ricPrices.findByIdAndDelete(req.params.id);
     const allricPrices = await ricPrices.find({}).sort({ createdDate: -1 });
     res.setHeader('Content-Type', 'application/json');

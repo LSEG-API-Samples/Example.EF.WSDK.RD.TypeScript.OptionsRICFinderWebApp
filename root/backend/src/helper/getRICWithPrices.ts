@@ -13,7 +13,7 @@ async function getRICWithPrices(ric: string, maturity: string, session: any) {
     }
     let prices = {};
 
-    if (ric.split('.')[1].charAt(0) === 'U') {
+    if (ric.split('.')[1].startsWith('U')) {
         prices = await getPrices(ric, sDate, eDate, session);
     }
     else {

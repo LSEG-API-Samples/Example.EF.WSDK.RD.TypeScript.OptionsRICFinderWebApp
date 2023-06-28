@@ -7,11 +7,11 @@ async function ISINtoRIC(asset: string, openedSession: any = null) {
     const doSymbolConversion = async function (params: SymbolConversion.Params) {
         const definition = SymbolConversion.Definition(params);
         const convRes = await definition.getData(session);
-        console.log(convRes)
-        if (convRes.data.raw.Matches.length > 0)
+        if (convRes.data.raw.Matches.length > 0) {
             return convRes.data.raw.Matches[asset].RIC;
-        else
-            console.log('No symbol conversion result received');
+        }
+        console.log('No symbol conversion result received');
+        return ''
     };
 
     try {

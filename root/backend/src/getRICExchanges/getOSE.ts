@@ -36,7 +36,7 @@ async function getOseRIC(asset: string, maturity: string, strike: number, optTyp
     const expComp = getExpComponent(expDate, expDetails[0])
     const generations = ['Y', 'Z', 'A', 'B', 'C'];
     const JNET = ['', 'L', 'R']
-    if (asset[0] == '.') {
+    if (asset.startsWith('.')) {
         for (let jnet in JNET) {
             const ric = `${assetName}${JNET[jnet]}${strikeRIC}${expDetails[1]}${moment(expDate).format('Y').slice(-1)}.OS${expComp}`
             let ricWithPrices = await getRICWithPrices(ric, maturity, session);

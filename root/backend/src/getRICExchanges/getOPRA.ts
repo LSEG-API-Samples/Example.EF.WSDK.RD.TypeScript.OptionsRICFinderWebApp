@@ -38,22 +38,16 @@ function getAssetName(asset: string) {
 }
 
 function getStrikeRIC(strike: number) {
-    let intPart = null;
-    let decPart = null;
+    let intPart = Math.floor(strike);
+    let decPart = '00';
     let strikeRIC = '';
-
+    let num_strike = { 1: 'A', 2: 'B', 3: 'C', 4: 'D' }
     if (strike % 1 !== 0) {
-        intPart = Math.floor(strike);
         decPart = String(strike).split('.', 2)[1]
-    }
-    else {
-        intPart = Math.floor(strike)
-        decPart = '00'
     }
     if (decPart.length === 1) {
         decPart = `${decPart}'0'`
     }
-
     if (intPart < 10) {
         strikeRIC = `00${String(intPart)}${decPart}`
     }
@@ -66,17 +60,8 @@ function getStrikeRIC(strike: number) {
     else if (intPart >= 1000 && intPart < 10000) {
         strikeRIC = `${String(intPart)}0`
     }
-    else if (intPart >= 10000 && intPart < 20000) {
-        strikeRIC = `A${String(intPart).slice(-4)}`
-    }
-    else if (intPart >= 20000 && intPart < 30000) {
-        strikeRIC = `B${String(intPart).slice(-4)}`
-    }
-    else if (intPart >= 30000 && intPart < 40000) {
-        strikeRIC = `C${String(intPart).slice(-4)}`
-    }
-    else if (intPart >= 40000 && intPart < 50000) {
-        strikeRIC = `D${String(intPart).slice(-4)}`
+    else if (intPart >= 10000) {
+        strikeRIC = `${num_strike[intPart.toString()[0]]}${String(intPart).slice(-4)}`
     }
     return strikeRIC
 }
@@ -107,7 +92,6 @@ async function getOpraRIC(asset: string, maturity: string, strike: number, optTy
         return ricWithPrices
     }
     return []
-
 }
 
 module.exports = getOpraRIC;
