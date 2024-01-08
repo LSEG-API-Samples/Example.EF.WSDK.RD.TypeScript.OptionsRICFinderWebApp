@@ -1,14 +1,18 @@
 import * as WSDKLoader from '@refinitiv-workspace-sdk/loader';
-import { Modes, SxSSessionType, } from '@refinitiv-types/workspace-sdk-core';
+import { Modes, SxSSessionType, SignOnModeType, SingOnMethod} from '@refinitiv-types/workspace-sdk-core';
 import creds from '../session.config.json';
 
 class WsdkHelper {
     appIsAlreadyOpened = false;
     openedAppName = ''
     constructor() {
+        console.log('credentials',creds.sessions.SxSSession.ApiKey, creds.sessions.SxSSession.ProductId)
         WSDKLoader.init(
             {
-                Mode: 'sxs' as Modes.SxS,
+                Mode: Modes.SxS,
+                SignOnMode: {
+                    type: SignOnModeType.AAA,
+                    },
                 SxSSession: {
                     ApiKey: creds.sessions.SxSSession.ApiKey,
                     ProductId: creds.sessions.SxSSession.ProductId,
@@ -30,6 +34,7 @@ class WsdkHelper {
         const wsdk = await this.getWsdk();
         console.log('DesktopAgent plugin has loaded: ', !!wsdk.DesktopAgent);
         const { Pricing, dataSession } = wsdk.DataLibrary;
+
         try {
             await dataSession.open();
             const pricingStream = Pricing.Definition({
@@ -39,7 +44,7 @@ class WsdkHelper {
             return pricingStream
         }
         catch (error: any) {
-            console.error('Error loading Workspace SDK');
+            console.error(error, 'Error loading Workspace SDK');
         }
     }
 
@@ -48,7 +53,6 @@ class WsdkHelper {
         const wsdk = await this.getWsdk();
         await wsdk.DesktopAgent.joinChannel("1");
         wsdk.DesktopAgent.addContextListener(null, (context) => {
-            console.log(context);
         });
     }
 
